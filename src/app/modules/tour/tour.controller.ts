@@ -1,12 +1,17 @@
 import { Request, Response } from 'express';
 import { tourService } from './tour.service';
+import sendResponse from '../../../sendResponse';
+import httpStatus from 'http-status';
 
 const createTour = async (req: Request, res: Response) => {
   try {
     const tour = req.body;
     const result = await tourService.createTour(tour);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Tour is created succesfully',
       data: result,
     });
   } catch (err) {
@@ -20,8 +25,11 @@ const createTour = async (req: Request, res: Response) => {
 const getAllTours = async (req: Request, res: Response) => {
   try {
     const result = await tourService.getAllTours();
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Tours are retrieved succesfully',
       data: result,
     });
   } catch (err) {
@@ -36,8 +44,11 @@ const getATours = async (req: Request, res: Response) => {
   try {
     const tourId = req.params.tourId;
     const result = await tourService.getATour(tourId);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Tour is retrieved succesfully',
       data: result,
     });
   } catch (err) {
@@ -54,8 +65,11 @@ const updateATour = async (req: Request, res: Response) => {
     const data = req.body;
 
     const result = await tourService.updateATour(tourId, data);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Tour is updated succesfully',
       data: result,
     });
   } catch (err) {
@@ -71,8 +85,11 @@ const deleteATour = async (req: Request, res: Response) => {
     const tourId = req.params.tourId;
 
     const result = await tourService.deleteATour(tourId);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Tour is deleted succesfully',
       data: result,
     });
   } catch (err) {

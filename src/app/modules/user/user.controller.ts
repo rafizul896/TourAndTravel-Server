@@ -1,13 +1,18 @@
 import { Request, Response } from 'express';
 import { userService } from './user.service';
+import sendResponse from '../../../sendResponse';
+import httpStatus from 'http-status';
 // req and res menagement
 
 const createUser = async (req: Request, res: Response) => {
   try {
     const user = req.body;
     const result = await userService.createUser(user);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'User is created succesfully',
       data: result,
     });
   } catch (err) {
@@ -21,8 +26,11 @@ const createUser = async (req: Request, res: Response) => {
 const getAllUser = async (req: Request, res: Response) => {
   try {
     const result = await userService.getAllUser();
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'Users are retrieved succesfully',
       data: result,
     });
   } catch (err) {
@@ -38,8 +46,11 @@ const getAUser = async (req: Request, res: Response) => {
     const id = req.params.id;
 
     const result = await userService.getAUser(id);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'User is retrieved succesfully',
       data: result,
     });
   } catch (err) {
@@ -56,8 +67,11 @@ const updateAUser = async (req: Request, res: Response) => {
     const data = req.body;
 
     const result = await userService.updateAUser(id, data);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'User is updated succesfully',
       data: result,
     });
   } catch (err) {
@@ -72,8 +86,11 @@ const deleteAUser = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const result = await userService.deleteAUser(id);
-    res.status(200).json({
+
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
+      message: 'User is deleted succesfully',
       data: result,
     });
   } catch (err) {
