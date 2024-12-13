@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import cors from 'cors';
 import userRouter from './app/modules/user/user.router';
 import tourRouter from './app/modules/tour/tour.router';
+import globalErrorHandler from './app/middlewares/globalErrorhandler';
 const app = express();
 
 // middleware
@@ -17,5 +18,7 @@ app.get('/', (req: Request, res: Response) => {
     message: 'Tour and travel server is Live 🏃‍♂️‍➡️',
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;

@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { tourService } from './tour.service';
 import sendResponse from '../../../sendResponse';
 import httpStatus from 'http-status';
 
-const createTour = async (req: Request, res: Response) => {
+const createTour = async (req: Request, res: Response,next:NextFunction) => {
   try {
     const tour = req.body;
     const result = await tourService.createTour(tour);
@@ -15,10 +15,11 @@ const createTour = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
-    res.status(404).json({
-      success: false,
-      data: err,
-    });
+    // res.status(404).json({
+    //   success: false,
+    //   data: err,
+    // });
+    next(err)
   }
 };
 
