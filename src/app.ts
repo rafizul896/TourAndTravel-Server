@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import userRouter from './modules/user/user.router';
-import tourRouter from './modules/tour/tour.router';
+import userRouter from './app/modules/user/user.router';
+import tourRouter from './app/modules/tour/tour.router';
 const app = express();
 
 // middleware
