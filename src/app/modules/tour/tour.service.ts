@@ -11,7 +11,7 @@ const getAllTours = async () => {
   return result;
 };
 
-const getATour = async (id: string) => {
+const getSingleTour = async (id: string) => {
   const result = await Tour.findById(id);
   return result;
 };
@@ -29,7 +29,7 @@ const deleteATour = async (id: string) => {
 export const tourService = {
   createTour,
   getAllTours,
-  getATour,
+  getSingleTour,
   updateATour,
   deleteATour,
 };
