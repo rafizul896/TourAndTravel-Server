@@ -1,10 +1,9 @@
-import { Request, Response } from 'express';
 import { userService } from './user.service';
 import sendResponse from '../../utils/sendResponse';
 import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 
-const createUser = catchAsync(async (req: Request, res: Response) => {
+const createUser = catchAsync(async (req, res) => {
   const user = req.body;
   const result = await userService.createUser(user);
 
@@ -16,7 +15,7 @@ const createUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAllUser = catchAsync(async (req: Request, res: Response) => {
+const getAllUser = catchAsync(async (req, res) => {
   const result = await userService.getAllUser();
 
   sendResponse(res, {
@@ -27,7 +26,7 @@ const getAllUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const getAUser = catchAsync(async (req: Request, res: Response) => {
+const getAUser = catchAsync(async (req, res) => {
   const id = req.params.id;
 
   const result = await userService.getAUser(id);
@@ -40,7 +39,7 @@ const getAUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const updateAUser = catchAsync(async (req: Request, res: Response) => {
+const updateAUser = catchAsync(async (req, res) => {
   const id = req.params.id;
   const data = req.body;
 
@@ -54,7 +53,7 @@ const updateAUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const deleteAUser = catchAsync(async (req: Request, res: Response) => {
+const deleteAUser = catchAsync(async (req, res) => {
   const id = req.params.id;
   const result = await userService.deleteAUser(id);
 
