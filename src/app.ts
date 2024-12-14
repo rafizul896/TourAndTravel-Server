@@ -3,6 +3,7 @@ import cors from 'cors';
 import userRouter from './app/modules/user/user.router';
 import tourRouter from './app/modules/tour/tour.router';
 import globalErrorHandler from './app/middlewares/globalErrorhandler';
+import { bookingRouter } from './app/modules/booking/booking.route';
 const app = express();
 
 // middleware
@@ -11,6 +12,7 @@ app.use(cors());
 
 app.use('/api/user', userRouter);
 app.use('/api/tour', tourRouter);
+app.use('/api/booking', bookingRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send({
