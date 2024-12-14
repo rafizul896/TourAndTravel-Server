@@ -15,12 +15,6 @@ const userSchema = new Schema<IUser>({
   },
 });
 
-// hook --> pre
-userSchema.pre('find', function (this, next) {
-  this.find({ age: { $gte: 20 } });
-  next();
-});
-
 // hook --> post
 userSchema.post('find', function (docs, next) {
   docs.forEach((doc:IUser) => {
