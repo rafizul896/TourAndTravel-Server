@@ -10,7 +10,7 @@ const getAllTours = async (query: Record<string, unknown>) => {
   const searchTerm = query?.searchTerm || '';
   const queryObj = { ...query };
   const searchableFields = ['name', 'startLocation', 'locations'];
-  const excludeFields = ['searchTerm', 'sort', 'limit', 'page'];
+  const excludeFields = ['searchTerm', 'sort', 'limit', 'page', 'fields'];
   excludeFields.forEach((key) => delete queryObj[key]);
 
   const searchQuery = Tour.find({
@@ -25,7 +25,7 @@ const getAllTours = async (query: Record<string, unknown>) => {
   // sorting
   let sort = '-createdAt';
 
-  if (query.sort) {
+  if (query?.sort) {
     sort = query.sort as string;
   }
 
@@ -36,9 +36,18 @@ const getAllTours = async (query: Record<string, unknown>) => {
   const limit = Number(query?.limit) || 10;
   const skiped = (page - 1) * limit;
 
-  const paginatedQuery = await sortQuery.skip(skiped).limit(limit);
+  const paginatedQuery = sortQuery.skip(skiped).limit(limit);
 
-  return paginatedQuery;
+  // fieldQuery
+  let fields = '-__v';
+
+  if (query?.fields) {
+    fields = (query.fields as string)?.split(',')?.join(' ');
+  }
+
+  const fieldQuery = await paginatedQuery.select(fields);
+
+  return fieldQuery;
 };
 
 const getSingleTour = async (id: string) => {
