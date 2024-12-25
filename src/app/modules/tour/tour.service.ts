@@ -10,7 +10,7 @@ const getAllTours = async (query: Record<string, unknown>) => {
   const searchTerm = query?.searchTerm || '';
   const queryObj = { ...query };
   const searchableFields = ['name', 'startLocation', 'locations'];
-  const excludeFields = ['searchTerm'];
+  const excludeFields = ['searchTerm', 'sort'];
   excludeFields.forEach((key) => delete queryObj[key]);
 
   const searchQuery = Tour.find({
@@ -18,9 +18,18 @@ const getAllTours = async (query: Record<string, unknown>) => {
       [field]: { $regex: searchTerm, $options: 'i' },
     })),
   });
-  
+
   // filterging
-  const result = await searchQuery.find(queryObj);
+  const filterQuery = searchQuery.find(queryObj);
+
+  // sorting
+  let sort = '-createdAt';
+
+  if (query.sort) {
+    sort = query.sort as string;
+  }
+
+  const result = await filterQuery.sort(sort);
 
   return result;
 };
