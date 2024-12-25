@@ -10,8 +10,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/api/user', userRouter);
-app.use('/api/tour', tourRouter);
+app.use('/api/users', userRouter);
+app.use('/api/tours', tourRouter);
 app.use('/api/booking', bookingRouter);
 
 app.get('/', (req: Request, res: Response) => {

@@ -6,8 +6,16 @@ const createTour = async (payload: ITour) => {
   return result;
 };
 
-const getAllTours = async () => {
-  const result = await Tour.find();
+const getAllTours = async (query: Record<string, unknown>) => {
+  const searchTerm = query?.searchTerm || '';
+  const searchableFields = ['name', 'startLocation', 'locations'];
+
+  const result = await Tour.find({
+    $or: searchableFields.map((field) => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  });
+
   return result;
 };
 
