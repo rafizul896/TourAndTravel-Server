@@ -4,12 +4,14 @@ import userRouter from './app/modules/user/user.router';
 import tourRouter from './app/modules/tour/tour.router';
 import globalErrorHandler from './app/middlewares/globalErrorhandler';
 import { bookingRouter } from './app/modules/booking/booking.route';
+import { authRoutes } from './app/modules/auth/auth.router';
 const app = express();
 
 // middleware
 app.use(express.json());
 app.use(cors());
 
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRouter);
 app.use('/api/tours', tourRouter);
 app.use('/api/booking', bookingRouter);

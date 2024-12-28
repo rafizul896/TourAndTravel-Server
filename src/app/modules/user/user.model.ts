@@ -5,6 +5,7 @@ const userSchema = new Schema<IUser>({
   name: { type: String, required: true },
   age: { type: Number, required: true },
   email: { type: String, required: true, unique: true, immutable: true },
+  password: { type: String, required: true },
   photoUrl: String,
   role: { type: String, required: true, enum: ['user', 'admin'] },
   userStatus: {
@@ -17,10 +18,10 @@ const userSchema = new Schema<IUser>({
 
 // hook --> post
 userSchema.post('find', function (docs, next) {
-  docs.forEach((doc:IUser) => {
+  docs.forEach((doc: IUser) => {
     doc.name = doc.name.toUpperCase();
   });
-    next();
+  next();
 });
 
 const User = model<IUser>('User', userSchema);
